@@ -9,8 +9,64 @@
   </head>
 
   <body>
-  	<div class='container'>
-    	<%= yield %>
-  	</div>
+    <div id="wrapper">
+    	<div class='container'>
+    <!-- NAV -->
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <!-- NAV BRAND -->
+           <%= link_to "Tweety Tweet Tweet", root_path, class: "navbar-brand" %>
+    <!-- NAV TOGGLE BUTTON -->
+             <button class="nav-btn pull-right navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="glyphicon glyphicon-menu-hamburger"></span>
+            </button>
+
+            <div class=" collapse navbar-collapse" id ="navbarTogglerDemo02" >
+     <!-- LINKS IN NAV -->
+              <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+
+                <li class="nav-item">
+              <%= link_to "New tweet", new_tweet_path, class: "nav-link" %>
+                </li>
+                
+
+                <li class="nav-item">
+                 <%= link_to "All tweets", all_tweets_path, class: "nav-link" %> 
+                </li>
+               
+  <!-- Devise -->
+                 <% if user_signed_in? %>
+                     <!-- Edit Profile -->
+                    <li class="nav-item">
+                        <%= link_to 'Edit Profile', edit_user_registration_path, class: "nav-link" %>
+
+                    </li>
+
+                    <li class="nav-item">
+                    <!-- Devise Sign Out -->   
+                           <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-link" %>
+
+                    </li>
+
+                    <li class="nav-item">
+                          <!-- AVATAR -->
+                      <% if current_user.avatar.url != nil %>
+                     <%= image_tag current_user.avatar.url, class: "thumb" %>
+                     <% end %>
+
+                    </li>
+
+                <% end %>
+              </ul>
+      
+              </div>
+
+       
+          </nav>
+
+
+        <%= yield %>
+    	</div>
+    </div>
   </body>
 </html>

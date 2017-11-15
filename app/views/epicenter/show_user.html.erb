@@ -1,0 +1,30 @@
+
+
+<h1>Here is information about @<%= @user.username %></h1>
+
+<p><strong>Name: </strong><%= @user.name %></p>
+
+<p><strong>Location: </strong><%= @user.location %></p>
+
+<p><strong>Bio: </strong><%= @user.bio %></p>
+
+<p><%= image_tag @user.avatar.url, class: 'show-pic' %></p>
+
+<p>
+	<% if current_user.following.include?(@user.id) %>
+				<%= link_to "Unfollow", unfollow_path(id: @user.id), class: "btn btn-danger" %>
+			<% else %>
+				<% if current_user.id != @user.id %>
+					<%= link_to "Follow", now_following_path(id: @user.id), class: "btn btn-primary" %>
+				<% end %>
+	<% end %>
+</p>
+
+
+<% @user.tweets.each do |tweet| %>
+		<div class="well">
+				<p>@<%= link_to @user.username, show_user_path(id: tweet.user.id) %></p>
+				<p>	<%= tweet.message %></p>
+
+		</div>
+<% end %>

@@ -64,15 +64,44 @@
        
           </nav>
       <!-- INFO -->
-          <div>
+
+  <% if user_signed_in? %>
+        <div class="well side-info col col-lg-2 col-md-2 col-sm-3">
+            
+              <div >
+                <p><%= image_tag current_user.avatar.url, class: 'show-pic' %></p>
+              </div>
+              <div >
+                
+                <p><strong>Name: </strong><%= current_user.name %></p>
+
+                <p><strong>Location: </strong><%= current_user.location %></p>
+
+                <p><strong>Bio: </strong><%= current_user.bio %></p>
+              </div>
+        </div>
 
 
-
-        <div>
+        
         <!-- FEED -->
-     
+        <div class="col col-lg-7 col-md-7 col-sm-6">
         <%= yield %>
-    	</div>
+        </div>
+
+        <!-- TAGS -->
+    	 <div class="well side-info col col-lg-3 col-md-3 col-sm-3">
+          <div>
+            <h2>#HashTags</h2>
+          </div>  
+      </div>
+
+  <% else %>
+      <%= yield %>
+  <% end %> 
+
+      <!-- END -->
+
+      </div>
     </div>
   </body>
 </html>

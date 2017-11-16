@@ -2,29 +2,34 @@
 
 <h1>Tweets</h1>
 
+<!-- NEW TWEET FORM-->
 
-    <% @tweets.each do |tweet| %>
+
+<!-- FEED -->
+  <% @tweets.order(created_at: :desc).each do |tweet| %>
        
-        <div class="well">
-            <div class="row">
+    <div class="well">
+     <div class="row">
           
-          <div class="col col-lg-1 col-md-1 col-sm-2 col-xs-3">
-            <%= image_tag tweet.user.avatar.url, class: 'thumb' %>
-          </div>
-          <div class="col col-lg-9 col-md-8 col-sm-8 col-xs-5">
+          <div class="col col-lg-2 col-md-4 col-sm-3 col-xs-3">
+              <%= image_tag tweet.user.avatar.url, class: 'thumb' %>
+            </div>
+            <div class="col col-lg-10 col-md-8 col-sm-9 col-xs-9">
+              <p><%= time_ago_in_words(local_time(tweet.created_at)) %> ago, @<%= link_to tweet.user.username, show_user_path(id: tweet.user.id) %> said...</p>
 
-            <p><%= link_to tweet.user.username, show_user_path(id: tweet.user.id) %></p>
-            <p><%= tweet.created_at %></p>
-            <p class="well"><%= tweet.message %></p>
+              <p class="panel"><%= tweet.message.html_safe %></p>
           </div>
-          <div class="col col-lg-2 col-md-3 col-sm-2 col-xs-4">
-           <p> <%= link_to 'Show', tweet, class: "btn btn-info" %></p>
-           <p> <%= link_to 'Edit', edit_tweet_path(tweet), class: "btn btn-info"  %></p>
-           <p> <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info"  %></p>
-          </div>
-       </div>
+       <div class="row">
+          
+             <p class="link col col-lg-4 col-md-4 col-sm-4 col-sm-4"> <%= link_to 'Show', tweet, class: "btn btn-info" %></p>
+             <p class="link col col-lg-4 col-md-4 col-sm-4 col-sm-4"> <%= link_to 'Edit', edit_tweet_path(tweet), class: "btn btn-info"  %></p>
+             <p class="link col col-lg-4 col-md-4 col-sm-4 col-sm-4"> <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info"  %></p>
+          
+        </div>
+      </div>
+     </div>
 
-    </div>
+    
   <% end %>
 
 <br>

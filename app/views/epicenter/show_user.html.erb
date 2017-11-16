@@ -2,27 +2,8 @@
 
 <h1>Here is information about @<%= @user.username %></h1>
 
-<div class="row">
-	<div class="col col-lg-2 col-md-2 col-sm-2 col-xs-4">
-		<p><%= image_tag @user.avatar.url, class: 'show-pic' %></p>
-	</div>
-	<div class="col col-lg-10 col-md-10 col-sm-10 col-xs-8">
-		
-		<p><strong>Name: </strong><%= @user.name %></p>
 
-		<p><strong>Location: </strong><%= @user.location %></p>
 
-		<p><strong>Bio: </strong><%= @user.bio %></p>
-	</div>
-</div>
-<div>
-	<%= form_for Tweet.new, url: {action: "epi_tweet"} do |f| %>
-		<%= f.text_field :message, class: "form-control" %>
-		<%= f.hidden_field :user_id, value: current_user.id %>
-		<%= f.submit "New Tweet", class: "btn btn-info" %>
-
-	<% end %>
-</div>
 <p>
 	<% if current_user.following.include?(@user.id) %>
 				<%= link_to "Unfollow", unfollow_path(id: @user.id), class: "btn btn-danger" %>
@@ -32,17 +13,25 @@
 				<% end %>
 	<% end %>
 </p>
+<div>
+	<%= form_for Tweet.new, url: {action: "epi_tweet"} do |f| %>
+		<%= f.text_field :message, class: "form-control" %>
+		<%= f.hidden_field :user_id, value: current_user.id %>
+		<%= f.submit "New Tweet", class: "btn btn-info" %>
+
+	<% end %>
+</div>
 
 
 <% @user.tweets.each do |tweet| %>
 		<div class="well">
 			<div class="row">
-					<div class="col col-lg-2 col-md-2 col-sm-2 col-xs-4">
+					<div class="col col-lg-2 col-md-3 col-sm-4 col-xs-4">
 				<%= image_tag tweet.user.avatar.url, class: "show-pic"  %>
 					</div>
-					<div class="col col-lg-10 col-md-10 col-sm-10 col-xs-8">
-				<p>@<%= link_to @user.username, show_user_path(id: tweet.user.id) %></p>
-				<p class="well">	<%= tweet.message %></p>
+					<div class="col col-lg-10 col-md-9 col-sm-8 col-xs-8">
+					<p><%= time_ago_in_words(local_time(tweet.created_at)) %> ago, @<%= link_to tweet.user.username, show_user_path(id: tweet.user.id) %> said...</p>
+				<p class="well">	<%= tweet.message.html_safe %></p>
 					</div>
 		</div>
 	</div>

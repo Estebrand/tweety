@@ -2,29 +2,30 @@
 
 <h1>Tweets</h1>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Avatar</th>
-      <th>Message</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
     <% @tweets.each do |tweet| %>
-      <tr>
-        <td><%= image_tag tweet.user.avatar.url, class: 'thumb' %></td>
-        <td><%= tweet.message %></td>
-        <td><%= link_to tweet.user.username, show_user_path(id: tweet.user.id) %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+       
+        <div class="well">
+            <div class="row">
+          
+          <div class="col col-lg-1 col-md-1 col-sm-2 col-xs-3">
+            <%= image_tag tweet.user.avatar.url, class: 'thumb' %>
+          </div>
+          <div class="col col-lg-9 col-md-8 col-sm-8 col-xs-5">
+
+            <p><%= link_to tweet.user.username, show_user_path(id: tweet.user.id) %></p>
+            <p><%= tweet.created_at %></p>
+            <p class="well"><%= tweet.message %></p>
+          </div>
+          <div class="col col-lg-2 col-md-3 col-sm-2 col-xs-4">
+           <p> <%= link_to 'Show', tweet, class: "btn btn-info" %></p>
+           <p> <%= link_to 'Edit', edit_tweet_path(tweet), class: "btn btn-info"  %></p>
+           <p> <%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-info"  %></p>
+          </div>
+       </div>
+
+    </div>
+  <% end %>
 
 <br>
 

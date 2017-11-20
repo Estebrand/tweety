@@ -32,4 +32,30 @@ module TweetsHelper
 
 	end
 
+  def hot_tags
+    tags = Tag.order(created_at: :desc).limit(4)
+    return tags
+  end
+
+  def top_tweeter
+    tweets = Tweet.all
+    if tweets.length > 0
+      user_id = Tweet.all.group_by { |h| h['user_id']}.to_a.max_by {|x| x[1].length}.first
+    
+      user = User.find(user_id)
+      return user
+    end
+  end
+
+  def top_tweets
+    tweets = Tweet.all
+      if tweets.length > 0
+        user_id = Tweet.all.group_by { |h| h['user_id']}.to_a.max_by {|x| x[1].length}.first
+
+        tweets = Tweet.where(user_id: user_id)
+        return tweets.length
+      end
+  end
+
+
 end

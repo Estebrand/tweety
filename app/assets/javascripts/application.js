@@ -13,5 +13,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require turbolinks
 //= require_tree .
+
+$ (document).ready(function(){
+	$('.unfollow-btn').hover(function(){
+		$(this).removeClass('btn-info');
+		$(this).addClass('btn-danger');
+		$(this).html("Unfollow");
+	},function(){
+		$(this).html("Following");
+		$(this).removeClass('btn-danger');
+		$(this).addClass('btn-info');
+
+	});
+})

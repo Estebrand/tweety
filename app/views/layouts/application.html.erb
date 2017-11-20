@@ -4,8 +4,8 @@
     <title>Tweety</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
@@ -33,7 +33,11 @@
                 <li class="nav-item">
                  <%= link_to "All tweets", all_tweets_path, class: "nav-link" %> 
                 </li>
-               
+<!-- Users -->
+                 <li class="nav-item">
+                      <%= link_to "All Users", all_users_path, class: "nav-link" %>
+                </li>
+
   <!-- Devise -->
                  <% if user_signed_in? %>
                      <!-- Edit Profile -->
@@ -41,6 +45,8 @@
                         <%= link_to 'Edit Profile', edit_user_registration_path, class: "nav-link" %>
 
                     </li>
+
+                   
 
                     <li class="nav-item">
                     <!-- Devise Sign Out -->   
@@ -82,18 +88,32 @@
         </div>
 
 
-        
-        <!-- FEED -->
+      
+    <!-- FEED -->
         <div class="col col-lg-7 col-md-7 col-sm-6">
         <%= yield %>
         </div>
 
-        <!-- TAGS -->
+    <!-- TAGS THAT ARE HOT TODAY-->
     	 <div class="well side-info col col-lg-3 col-md-3 col-sm-3">
           <div>
-            <h2>#HashTags</h2>
+            <h2>#HotTags</h2>
+            
+            <% hot_tags.each do |tag| %>
+              <%= link_to tag.phrase, tag_tweets_path(id: tag.id) %>
+
+            <%end %>
+
+          </div>
+      
+<!-- HOTTEST TWEETER -->
+          <div> 
+          <h2>@Top Tweeter</h2>
+
+          <%= link_to "@#{top_tweeter.username}", show_user_path(id:top_tweeter.id) %> with <%= top_tweets %> tweets!
 
           </div>  
+
       </div>
 
   <% else %>

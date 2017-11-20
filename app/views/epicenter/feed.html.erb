@@ -22,7 +22,14 @@
 					</div>
 					
 					<div class="col col-lg-10 col-md-9 col-sm-8 col-xs-8">
- 						<p><%= time_ago_in_words(local_time(tweet.created_at)) %> ago, @<%= link_to tweet.user.username, show_user_path(id: tweet.user.id) %> said...</p>
+ 						<p>
+ 							<% if Time.now - tweet.created_at <86400  %> 
+ 								<%= time_ago_in_words(local_time(tweet.created_at)) %> ago,
+							<% else %>
+ 								<%= tweet.created_at.strftime('%b%e') if Time.now - tweet.created_at > 86400 %>,
+							<% end %>
+
+ 							@<%= link_to tweet.user.username, show_user_path(id: tweet.user.id) %> said...</p>
 						<p class="well"> <%= tweet.message.html_safe %></p>
 					</div>
 

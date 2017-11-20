@@ -3,16 +3,20 @@
 <h1>Here is information about @<%= @user.username %></h1>
 
 
-
+<!-- FOLLOWING ? -->
 <p>
 	<% if current_user.following.include?(@user.id) %>
-				<%= link_to "Unfollow", unfollow_path(id: @user.id), class: "btn btn-danger" %>
+				<%= link_to "Following", unfollow_path(id: @user.id), class: "btn btn-info unfollow-btn" %>
 			<% else %>
 				<% if current_user.id != @user.id %>
 					<%= link_to "Follow", now_following_path(id: @user.id), class: "btn btn-primary" %>
 				<% end %>
 	<% end %>
 </p>
+
+
+
+<!-- NEW TWEET -->
 <div>
 	<%= form_for Tweet.new, url: {action: "epi_tweet"} do |f| %>
 		<%= f.text_field :message, class: "form-control" %>
@@ -21,6 +25,9 @@
 
 	<% end %>
 </div>
+
+<%= link_to "#{@user.name}'s Followers", followers_path(id: @user.id), class: "btn btn-warning"%>
+<%= link_to "#{@user.name} is following", following_path(id: @user.id), class: "btn btn-warning" %>
 
 
 <% @user.tweets.each do |tweet| %>

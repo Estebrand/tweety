@@ -49,9 +49,14 @@ en:
             username:
               blank: " is missing. You need to pick one. And pick wisely."
               taken: " must be unique. And someone already has this one. wamb wamb wamb"
-
-
-
+  datetime: 
+    distance_in_words:
+      x_minutes:
+        one: "1m"
+        other: "%{count}m"
+      about_x_hours:
+        one: "1h"
+        other: "%{count}h"
 
 
 

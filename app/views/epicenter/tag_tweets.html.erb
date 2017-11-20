@@ -1,12 +1,14 @@
 <div>
-	<h1><%= @tag.phrase %></h1>
+	<h1>Tag <%= @tag.phrase %></h1>
 </div>
 
 <div class="row">
 <!-- A plce for current user stats -->
-	<div>
+	<div class="well">
+
 		<% @tag.tweets.order(created_at: :desc).each do |tweet| %>
 			<p>
+				<h3><%= @tag.phrase %></h3>
 				<%= tweet.user.name %> <%= link_to "@#{tweet.user.username}", show_user_path(id: tweet.user_id) %>
 				 • <%= time_ago_in_words(tweet.created_at) %>
 			</p>

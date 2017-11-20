@@ -5,6 +5,7 @@ class Tag < ApplicationRecord
 	
 
 	def show
-	@tag = Tag.all
+		@tag = Tag.all
 	end
+
 end

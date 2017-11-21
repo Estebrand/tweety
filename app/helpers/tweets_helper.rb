@@ -47,6 +47,18 @@ module TweetsHelper
     end
   end
 
+  def hot_tags
+    tweets = TweetTag.all
+    if tweets.length>0
+      tag_arr = []
+      tag_ids = []
+      count =0
+
+        tags = TweetTag.all.group_by { |h| h['tag_id'] }
+
+
+  end
+
   def top_tweets
     tweets = Tweet.all
       if tweets.length > 0
@@ -57,5 +69,16 @@ module TweetsHelper
       end
   end
 
+  def total_followers
+    user = User.find(current_user.id)
+    followers =[]
 
+    User.all.each do |followers|
+      if followers.following.include?(user.id)
+        followers.push(follower)
+      end
+    end
+
+    return followers.length
+  end
 end

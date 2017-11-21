@@ -69,13 +69,15 @@
 
        
           </nav>
-      <!-- INFO -->
+<!-- USER INFO -->
 
   <% if user_signed_in? %>
         <div class="well side-info col col-lg-2 col-md-2 col-sm-3">
             
               <div >
+                <% if current_user.avatar.url != nil %>
                 <p><%= image_tag current_user.avatar.url, class: 'show-pic' %></p>
+                <% end %>
               </div>
               <div >
                 
@@ -85,10 +87,18 @@
 
                 <p><strong>Bio: </strong><%= current_user.bio %></p>
               </div>
+<!-- USER STATS -->
+              <div>
+                <p><strong>Number of Tweets: </strong><%= current_user.tweets.length %></p>
+            
+                <p><strong>Following: </strong><%= link_to current_user.following.length, following_path(id: current_user.id) %></p>
+
+                <p><strong>Followers: </strong><%= link_to total_followers, followers_path(id: current_user.id) %></p>
+
+              </div>
+
         </div>
 
-
-      
     <!-- FEED -->
         <div class="col col-lg-7 col-md-7 col-sm-6">
         <%= yield %>
